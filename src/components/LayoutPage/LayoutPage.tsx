@@ -72,11 +72,7 @@ const LayoutPage = (props: Props) => {
         <div style={{ width: "35%" }}>
           <Input
             placeholder="Search legal cluster"
-            suffix={
-              <Tooltip title="Extra information">
-                <SearchOutlined />
-              </Tooltip>
-            }
+            suffix={<SearchOutlined />}
           />
         </div>
         <div className="badgeWrapper">
