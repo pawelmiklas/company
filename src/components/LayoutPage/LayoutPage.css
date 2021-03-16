@@ -1,0 +1,57 @@
+.ant-layout-sider {
+  background-color: transparent !important;
+  min-width: 300px !important;
+  width: 300px !important;
+}
+
+.LogoWrapper {
+  width: 50px;
+}
+
+.badgeWrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.badge {
+  width: 32px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: 0px 8px !important;
+}
+
+.cardSiderItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+  font-weight: 500;
+}
+
+.cardSiderItem > p {
+  width: 60%;
+  margin: 0;
+}
+
+.ant-card-body {
+  padding: 8px 16px !important;
+}
+
+.siderItem {
+  display: flex;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.cardTitleWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
