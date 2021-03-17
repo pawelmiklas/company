@@ -51,7 +51,7 @@ const menu = (
 
 const LayoutPage = (props: Props) => {
   return (
-    <Layout style={{ height: "100%" }}>
+    <Layout style={{ height: "100vh", overflow: "auto" }}>
       <Header
         style={{
           backgroundColor: "white",
@@ -95,7 +95,7 @@ const LayoutPage = (props: Props) => {
           </Badge>
         </div>
       </Header>
-      <Layout style={{ height: "100%" }}>
+      <Layout style={{ height: "100vh", overflow: "auto" }}>
         <Sider style={{ padding: 16, width: 300 }}>
           <Card
             title={
