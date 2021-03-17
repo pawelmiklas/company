@@ -114,12 +114,12 @@ const LayoutPage = (props: Props) => {
             <div className="cardSiderItem">
               <UsergroupDeleteOutlined style={{ fontSize: "24px" }} />
               <p>Your Network</p>
-              <Button icon={<PlusOutlined />} />
+              <Button icon={<UserAddOutlined />} />
             </div>
             <div className="cardSiderItem">
               <TableOutlined style={{ fontSize: "24px" }} />
               <p>Your Publications</p>
-              <Button icon={<UserAddOutlined />} />
+              <Button icon={<PlusOutlined />} />
             </div>
           </Card>
           <div className="siderItem" style={{ marginTop: 16 }}>
