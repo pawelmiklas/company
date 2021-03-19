@@ -14,12 +14,12 @@ import {
   Pagination,
   Row,
   Skeleton,
-  Space,
   Typography,
 } from "antd";
 import { useComments } from "api/queries";
+import IconText from "components/IconText/IconText";
 import useDebounce from "hooks/useDebounce";
-import React, { FunctionComponent, useState } from "react";
+import React, { useState } from "react";
 import "./ResumeList.css";
 
 const skeletonData = [...Array(10).keys()].map((item) => ({
@@ -43,23 +43,9 @@ const menu = (
   </Menu>
 );
 
-type IconTextProps = {
-  text: string;
-  icon?: FunctionComponent<any>;
-};
-
-const IconText = ({ icon, text }: IconTextProps) => (
-  <Space style={{ padding: "4px 12px 0 0" }}>
-    {icon && React.createElement(icon)}
-    {text}
-  </Space>
-);
-
 const { Text, Title } = Typography;
 
-interface Props {}
-
-const ResumeList = (props: Props) => {
+const ResumeList = () => {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("");
   const debouncedFilter = useDebounce(filter, 300);
@@ -68,6 +54,7 @@ const ResumeList = (props: Props) => {
     limit: 10,
     filter: debouncedFilter,
   });
+  console.log("🚀 ~ file: ResumeList.tsx ~ line 53 ~ ResumeList ~ data", data);
 
   return (
     <>

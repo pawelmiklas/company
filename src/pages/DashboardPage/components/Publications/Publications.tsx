@@ -1,11 +1,7 @@
-import { Card, Col, List, Row, Space, Typography, Image } from "antd";
-import React, { FunctionComponent } from "react";
 import { UserOutlined } from "@ant-design/icons";
-
-type IconTextProps = {
-  text: string;
-  icon?: FunctionComponent<any>;
-};
+import { Card, Col, Image, List, Row, Typography } from "antd";
+import IconText from "components/IconText/IconText";
+import React from "react";
 
 const listData: {
   href: string;
@@ -29,16 +25,7 @@ for (let i = 0; i < 3; i++) {
 
 const { Text, Title } = Typography;
 
-const IconText = ({ icon, text }: IconTextProps) => (
-  <Space style={{ padding: "4px 12px 0 0" }}>
-    {icon && React.createElement(icon)}
-    {text}
-  </Space>
-);
-
-interface Props {}
-
-const Publications = (props: Props) => {
+const Publications = () => {
   return (
     <Row>
       <Col span={8}>

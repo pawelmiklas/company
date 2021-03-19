@@ -1,30 +1,17 @@
-import React, { FunctionComponent } from "react";
+import { FileTextOutlined, UserOutlined } from "@ant-design/icons";
 import Carousel, { slidesToShowPlugin } from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
-import { Card, Row, Space, Typography } from "antd";
-import { UserOutlined, FileTextOutlined } from "@ant-design/icons";
+import { Card, Row, Typography } from "antd";
+import IconText from "components/IconText/IconText";
+import React from "react";
 import "./WorkspacesSlidet.css";
 
 const { Meta } = Card;
 const { Text, Title } = Typography;
 
-interface Props {}
-
-type IconTextProps = {
-  text: string;
-  icon?: FunctionComponent<any>;
-};
-
-const IconText = ({ icon, text }: IconTextProps) => (
-  <Space style={{ padding: "4px 12px 0 0" }}>
-    {icon && React.createElement(icon)}
-    {text}
-  </Space>
-);
-
 const items = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
-const WorkspacesSlider = (props: Props) => {
+const WorkspacesSlider = () => {
   return (
     <div className="workspaceSliderWrapper">
       <Row justify="space-between">
