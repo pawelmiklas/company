@@ -95,55 +95,59 @@ const LayoutPage = (props: Props) => {
           </Badge>
         </div>
       </Header>
-      <Layout style={{ height: "100vh", overflow: "auto" }}>
-        <Sider style={{ padding: 16, width: 300 }}>
-          <Card
-            title={
-              <div className="cardTitleWrapper">
-                <Avatar size={64} icon={<UserOutlined />} />
-                <Title
-                  level={5}
-                  style={{ margin: "8px 0 0 0", color: "#3399ff" }}
-                >
-                  Humberta Swift
-                </Title>
-                <Text type="secondary">Job title - Company</Text>
+      <main style={{ display: "flex", justifyContent: "center" }}>
+        <Layout style={{ height: "100vh", maxWidth: 1400 }}>
+          <Sider style={{ padding: 16, width: 300 }}>
+            <Card
+              title={
+                <div className="cardTitleWrapper">
+                  <Avatar size={64} icon={<UserOutlined />} />
+                  <Title
+                    level={5}
+                    style={{ margin: "8px 0 0 0", color: "#3399ff" }}
+                  >
+                    Humberta Swift
+                  </Title>
+                  <Text type="secondary">Job title - Company</Text>
+                </div>
+              }
+            >
+              <div className="cardSiderItem">
+                <UsergroupDeleteOutlined style={{ fontSize: "24px" }} />
+                <p>Your Network</p>
+                <Button icon={<UserAddOutlined />} />
               </div>
-            }
-          >
-            <div className="cardSiderItem">
-              <UsergroupDeleteOutlined style={{ fontSize: "24px" }} />
-              <p>Your Network</p>
-              <Button icon={<UserAddOutlined />} />
+              <div className="cardSiderItem">
+                <TableOutlined style={{ fontSize: "24px" }} />
+                <p>Your Publications</p>
+                <Button icon={<PlusOutlined />} />
+              </div>
+            </Card>
+            <div className="siderItem" style={{ marginTop: 16 }}>
+              <FileTextOutlined style={{ fontSize: "32px", paddingRight: 8 }} />
+              Publications
             </div>
-            <div className="cardSiderItem">
-              <TableOutlined style={{ fontSize: "24px" }} />
-              <p>Your Publications</p>
-              <Button icon={<PlusOutlined />} />
+            <div className="siderItem">
+              <RadarChartOutlined
+                style={{ fontSize: "32px", paddingRight: 8 }}
+              />
+              Ecosystem
             </div>
-          </Card>
-          <div className="siderItem" style={{ marginTop: 16 }}>
-            <FileTextOutlined style={{ fontSize: "32px", paddingRight: 8 }} />
-            Publications
-          </div>
-          <div className="siderItem">
-            <RadarChartOutlined style={{ fontSize: "32px", paddingRight: 8 }} />
-            Ecosystem
-          </div>
-          <div className="siderItem">
-            <HddOutlined style={{ fontSize: "32px", paddingRight: 8 }} />
-            Entities
-          </div>
-        </Sider>
-        <Content>
-          <Switch>
-            <Route path="/dashboard" component={DashboardPage} />
-            <Route path="/entities" component={() => <div></div>} />
-            <Route path="/publications" component={() => <div></div>} />
-            <Redirect to="/dashboard" />
-          </Switch>
-        </Content>
-      </Layout>
+            <div className="siderItem">
+              <HddOutlined style={{ fontSize: "32px", paddingRight: 8 }} />
+              Entities
+            </div>
+          </Sider>
+          <Content>
+            <Switch>
+              <Route path="/dashboard" component={DashboardPage} />
+              <Route path="/entities" component={() => <div></div>} />
+              <Route path="/publications" component={() => <div></div>} />
+              <Redirect to="/dashboard" />
+            </Switch>
+          </Content>
+        </Layout>
+      </main>
     </Layout>
   );
 };
