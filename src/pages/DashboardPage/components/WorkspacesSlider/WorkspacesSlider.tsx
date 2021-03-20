@@ -3,15 +3,17 @@ import Carousel, { slidesToShowPlugin } from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
 import { Card, Row, Typography } from "antd";
 import IconText from "components/IconText/IconText";
-import React from "react";
+import React, { useCallback } from "react";
+import { useStore } from "store/store";
+import { matchPhoto } from "utils/collectionMatches";
 import "./WorkspacesSlidet.css";
 
 const { Meta } = Card;
 const { Text, Title } = Typography;
 
-const items = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-
 const WorkspacesSlider = () => {
+  const { users, photos } = useStore(useCallback((state) => state, []));
+
   return (
     <div className="workspaceSliderWrapper">
       <Row justify="space-between">
@@ -31,37 +33,25 @@ const WorkspacesSlider = () => {
         itemWidth={320}
         offset={8}
       >
-        {items.map(() => (
+        {(users || []).map((item) => (
           <Card
             key={`${new Date().getTime()}`}
             style={{ width: 320, height: 240 }}
             cover={
               <img
-                alt="example"
+                alt=""
                 style={{ width: 320, height: 110 }}
-                src="https://via.placeholder.com/300/92c952"
+                src={matchPhoto(photos, item.id + 10)?.url}
               />
             }
           >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                flexDirection: "column",
-                height: "100%",
-              }}
-            >
+            <div className="cardContentWrapper">
               <img
-                alt="example"
-                style={{
-                  width: 105,
-                  height: 105,
-                  position: "absolute",
-                  top: "-35%",
-                }}
-                src="https://via.placeholder.com/150/771796"
+                alt=""
+                className="cardContentImage"
+                src={matchPhoto(photos, item.id)?.thumbnailUrl}
               />
-              <Meta title="Europe Street beat" style={{ marginLeft: 125 }} />
+              <Meta title={item.company.name} className="cardContentMeta" />
               <div>
                 <IconText icon={<FileTextOutlined />} text="Contract" />
                 <IconText icon={<UserOutlined />} text="150 users" />

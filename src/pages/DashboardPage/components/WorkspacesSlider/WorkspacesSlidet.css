@@ -6,3 +6,21 @@
 .workspaceSliderWrapper {
   padding: 24px 0;
 }
+
+.cardContentWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+}
+
+.cardContentImage {
+  width: 105px;
+  height: 105px;
+  position: absolute;
+  top: -35%;
+}
+
+.cardContentMeta {
+  margin-left: 125px !important;
+}
