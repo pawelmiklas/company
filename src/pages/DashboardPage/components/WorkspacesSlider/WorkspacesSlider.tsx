@@ -33,6 +33,7 @@ const WorkspacesSlider = () => {
       >
         {items.map(() => (
           <Card
+            key={`${new Date().getTime()}`}
             style={{ width: 320, height: 240 }}
             cover={
               <img
@@ -62,8 +63,8 @@ const WorkspacesSlider = () => {
               />
               <Meta title="Europe Street beat" style={{ marginLeft: 125 }} />
               <div>
-                <IconText icon={FileTextOutlined} text="Contract" />
-                <IconText icon={UserOutlined} text="150 users" />
+                <IconText icon={<FileTextOutlined />} text="Contract" />
+                <IconText icon={<UserOutlined />} text="150 users" />
                 <Text type="secondary">
                   <IconText text="Last update 3 days ago" />
                 </Text>

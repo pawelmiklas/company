@@ -11,7 +11,6 @@ import {
   TableOutlined,
   UserAddOutlined,
   UsergroupDeleteOutlined,
-  UserOutlined,
   WechatOutlined,
 } from "@ant-design/icons";
 import {
@@ -23,15 +22,16 @@ import {
   Input,
   Layout,
   Menu,
-  Tooltip,
   Typography,
 } from "antd";
+import { usePhotos } from "api/usePhotos";
+import { useUsers } from "api/useUsers";
 import DashboardPage from "pages/DashboardPage/DashboardPage";
-import React from "react";
+import React, { useEffect } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
+import { useStore } from "store/store";
+import { matchPhoto } from "utils/collectionMatches";
 import "./LayoutPage.css";
-
-interface Props {}
 
 const { Header, Sider, Content } = Layout;
 const { Text, Title } = Typography;
@@ -49,7 +49,27 @@ const menu = (
   </Menu>
 );
 
-const LayoutPage = (props: Props) => {
+const LayoutPage = () => {
+  const { data } = useUsers();
+  const { data: photosData } = usePhotos();
+  const { setPhotos, setUsers, users, photos } = useStore();
+
+  useEffect(() => {
+    if (data) {
+      setUsers(data);
+    }
+  }, [data, setUsers]);
+
+  useEffect(() => {
+    if (photosData) {
+      setPhotos(photosData);
+    }
+  }, [photosData, setPhotos]);
+
+  if (users.length === 0 || photos.length === 0) {
+    return null;
+  }
+
   return (
     <Layout style={{ height: "100vh", overflow: "auto" }}>
       <Header
@@ -101,14 +121,18 @@ const LayoutPage = (props: Props) => {
             <Card
               title={
                 <div className="cardTitleWrapper">
-                  <Avatar size={64} icon={<UserOutlined />} />
+                  <Avatar
+                    size={64}
+                    src={matchPhoto(photos, users[0].id)?.thumbnailUrl}
+                  />
                   <Title
                     level={5}
                     style={{ margin: "8px 0 0 0", color: "#3399ff" }}
                   >
-                    Humberta Swift
+                    {users[0].name || ""}
                   </Title>
-                  <Text type="secondary">Job title - Company</Text>
+                  <Text type="secondary">{`${users[0].company.name}`}</Text>
+                  <Text type="secondary">{`${users[0].address.city}`}</Text>
                 </div>
               }
             >

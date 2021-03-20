@@ -2,9 +2,9 @@ import {
   DownOutlined,
   RedEnvelopeOutlined,
   SearchOutlined,
-  StarOutlined,
 } from "@ant-design/icons";
 import {
+  Avatar,
   Card,
   Col,
   Dropdown,
@@ -16,10 +16,12 @@ import {
   Skeleton,
   Typography,
 } from "antd";
-import { useComments } from "api/queries";
+import { useComments } from "api/useComments";
 import IconText from "components/IconText/IconText";
 import useDebounce from "hooks/useDebounce";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+import { useStore } from "store/store";
+import { matchPhoto, matchUser } from "utils/collectionMatches";
 import "./ResumeList.css";
 
 const skeletonData = [...Array(10).keys()].map((item) => ({
@@ -30,31 +32,23 @@ const skeletonData = [...Array(10).keys()].map((item) => ({
   postId: item,
 }));
 
-const menu = (
-  <Menu>
-    <Menu.Item key="0">
-      <a href="https://www.antgroup.com">1st menu item</a>
-    </Menu.Item>
-    <Menu.Item key="1">
-      <a href="https://www.aliyun.com">2nd menu item</a>
-    </Menu.Item>
-    <Menu.Divider />
-    <Menu.Item key="3">3rd menu item</Menu.Item>
-  </Menu>
-);
-
 const { Text, Title } = Typography;
 
 const ResumeList = () => {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("");
+  const [dropDownValue, setDropDownValue] = useState<"Followed" | "My">(
+    "Followed"
+  );
   const debouncedFilter = useDebounce(filter, 300);
   const { data, isLoading } = useComments({
     from: page,
     limit: 10,
-    filter: debouncedFilter,
+    name: debouncedFilter,
+    postId: dropDownValue === "My" ? 1 : undefined,
   });
-  console.log("🚀 ~ file: ResumeList.tsx ~ line 53 ~ ResumeList ~ data", data);
+
+  const { users, photos } = useStore(useCallback((state) => state, []));
 
   return (
     <>
@@ -72,11 +66,27 @@ const ResumeList = () => {
                 setFilter(e.target.value || "");
               }}
             />
-            <Dropdown overlay={menu} trigger={["click"]} className="dropDown">
-              <a onClick={(e) => e.preventDefault()}>
-                Followed
+            <Dropdown
+              overlay={
+                <Menu>
+                  <Menu.Item
+                    key="1"
+                    onClick={() => setDropDownValue("Followed")}
+                  >
+                    Followed
+                  </Menu.Item>
+                  <Menu.Item key="2" onClick={() => setDropDownValue("My")}>
+                    My
+                  </Menu.Item>
+                </Menu>
+              }
+              trigger={["click"]}
+              className="dropDown"
+            >
+              <span onClick={(e) => e.preventDefault()}>
+                <span style={{ marginRight: 4 }}>{dropDownValue}</span>
                 <DownOutlined />
-              </a>
+              </span>
             </Dropdown>
           </div>
         </Col>
@@ -93,10 +103,22 @@ const ResumeList = () => {
                 </Title>
                 <div>{item.body}</div>
                 <div>
-                  <IconText icon={StarOutlined} text={item.email} />
-                  <IconText icon={RedEnvelopeOutlined} text={item.email} />
+                  <IconText
+                    icon={
+                      <Avatar
+                        size="small"
+                        src={matchPhoto(photos, item.postId)?.thumbnailUrl}
+                      />
+                    }
+                    text={matchUser(users, item.postId)?.name || ""}
+                  />
+                  <IconText icon={<RedEnvelopeOutlined />} text="Corporate" />
                   <Text type="secondary">
-                    <IconText text={item.email} />
+                    <IconText
+                      text={`updated 3 days ago by ${
+                        matchUser(users, item.postId)?.name
+                      }`}
+                    />
                   </Text>
                 </div>
               </Card>

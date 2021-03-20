@@ -68,7 +68,7 @@ const Publications = () => {
                       <Text type="secondary" style={{ marginRight: 8 }}>
                         7 jan 2020
                       </Text>
-                      <IconText icon={UserOutlined} text="John Doe" />
+                      <IconText icon={<UserOutlined />} text="John Doe" />
                     </div>
                   }
                 />
