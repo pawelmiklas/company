@@ -6,7 +6,7 @@ import IconText from "components/IconText/IconText";
 import React, { useCallback } from "react";
 import { useStore } from "store/store";
 import { matchPhoto } from "utils/collectionMatches";
-import "./WorkspacesSlidet.css";
+import "./WorkspacesSlider.css";
 
 const { Meta } = Card;
 const { Text, Title } = Typography;
