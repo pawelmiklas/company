@@ -31,6 +31,7 @@ import React, { useEffect } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { useStore } from "store/store";
 import { matchPhoto } from "utils/collectionMatches";
+import { colors } from "utils/theme";
 import "./LayoutPage.css";
 
 const { Header, Sider, Content } = Layout;
@@ -102,14 +103,14 @@ const LayoutPage = () => {
           <Badge
             className="badge"
             count={3}
-            style={{ backgroundColor: "#3399ff" }}
+            style={{ backgroundColor: colors.primary }}
           >
             <WechatOutlined style={{ fontSize: "24px" }} />
           </Badge>
           <Badge
             className="badge"
             count={3}
-            style={{ backgroundColor: "#3399ff" }}
+            style={{ backgroundColor: colors.primary }}
           >
             <BellOutlined style={{ fontSize: "24px" }} />
           </Badge>
@@ -127,7 +128,7 @@ const LayoutPage = () => {
                   />
                   <Title
                     level={5}
-                    style={{ margin: "8px 0 0 0", color: "#3399ff" }}
+                    style={{ margin: "8px 0 0 0", color: colors.primary }}
                   >
                     {users[0].name || ""}
                   </Title>

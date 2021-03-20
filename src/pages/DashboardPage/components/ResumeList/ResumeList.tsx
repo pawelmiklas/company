@@ -2,6 +2,7 @@ import {
   DownOutlined,
   RedEnvelopeOutlined,
   SearchOutlined,
+  FullscreenOutlined,
 } from "@ant-design/icons";
 import {
   Avatar,
@@ -22,6 +23,7 @@ import useDebounce from "hooks/useDebounce";
 import React, { useCallback, useState } from "react";
 import { useStore } from "store/store";
 import { matchPhoto, matchUser } from "utils/collectionMatches";
+import { colors } from "utils/theme";
 import "./ResumeList.css";
 
 const skeletonData = [...Array(10).keys()].map((item) => ({
@@ -60,7 +62,7 @@ const ResumeList = () => {
           <div className="headingWrapper">
             <Input
               size="small"
-              placeholder="Filter by title"
+              placeholder="Filter by title..."
               suffix={<SearchOutlined />}
               onChange={(e) => {
                 setFilter(e.target.value || "");
@@ -71,11 +73,16 @@ const ResumeList = () => {
                 <Menu>
                   <Menu.Item
                     key="1"
+                    style={{ color: colors.primary }}
                     onClick={() => setDropDownValue("Followed")}
                   >
                     Followed
                   </Menu.Item>
-                  <Menu.Item key="2" onClick={() => setDropDownValue("My")}>
+                  <Menu.Item
+                    key="2"
+                    style={{ color: colors.primary }}
+                    onClick={() => setDropDownValue("My")}
+                  >
                     My
                   </Menu.Item>
                 </Menu>
@@ -83,7 +90,11 @@ const ResumeList = () => {
               trigger={["click"]}
               className="dropDown"
             >
-              <span onClick={(e) => e.preventDefault()}>
+              <span
+                onClick={(e) => e.preventDefault()}
+                style={{ color: colors.primary }}
+              >
+                <FullscreenOutlined />
                 <span style={{ marginRight: 4 }}>{dropDownValue}</span>
                 <DownOutlined />
               </span>
@@ -98,7 +109,7 @@ const ResumeList = () => {
           <Skeleton loading={isLoading} paragraph={{ rows: 2 }}>
             <List.Item>
               <Card>
-                <Title level={5} style={{ color: "#3399ff" }}>
+                <Title level={5} style={{ color: colors.primary }}>
                   {item.name}
                 </Title>
                 <div>{item.body}</div>
