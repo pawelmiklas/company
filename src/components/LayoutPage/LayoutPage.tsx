@@ -26,9 +26,7 @@ import {
 } from "antd";
 import { usePhotos } from "api/usePhotos";
 import { useUsers } from "api/useUsers";
-import DashboardPage from "pages/DashboardPage/DashboardPage";
-import React, { useEffect } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import React, { FC, ReactNode, useEffect } from "react";
 import { useStore } from "store/store";
 import { matchPhoto } from "utils/collectionMatches";
 import { colors } from "utils/theme";
@@ -50,8 +48,12 @@ const menu = (
   </Menu>
 );
 
-const LayoutPage = () => {
-  const { data } = useUsers();
+type LayoutPageProps = {
+  children: ReactNode;
+};
+
+const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
+  const { data } = useUsers({});
   const { data: photosData } = usePhotos();
   const { setPhotos, setUsers, users, photos } = useStore();
 
@@ -163,14 +165,7 @@ const LayoutPage = () => {
               Entities
             </div>
           </Sider>
-          <Content>
-            <Switch>
-              <Route path="/dashboard" component={DashboardPage} />
-              <Route path="/entities" component={() => <div></div>} />
-              <Route path="/publications" component={() => <div></div>} />
-              <Redirect to="/dashboard" />
-            </Switch>
-          </Content>
+          <Content>{children}</Content>
         </Layout>
       </main>
     </Layout>
