@@ -4,6 +4,7 @@ import "@brainhubeu/react-carousel/lib/style.css";
 import { Card, Row, Typography } from "antd";
 import IconText from "components/IconText/IconText";
 import React, { useCallback } from "react";
+import { Link } from "react-router-dom";
 import { useStore } from "store/store";
 import { matchPhoto } from "utils/collectionMatches";
 import "./WorkspacesSlider.css";
@@ -34,33 +35,40 @@ const WorkspacesSlider = () => {
         offset={8}
       >
         {(users || []).map((item) => (
-          <Card
-            key={`${new Date().getTime()}`}
-            style={{ width: 320, height: 240 }}
-            cover={
-              <img
-                alt=""
-                style={{ width: 320, height: 110 }}
-                src={matchPhoto(photos, item.id + 10)?.url}
-              />
-            }
+          <Link
+            to={{
+              pathname: `/workspace/${item.id}`,
+              state: { title: item.company.name },
+            }}
           >
-            <div className="cardContentWrapper">
-              <img
-                alt=""
-                className="cardContentImage"
-                src={matchPhoto(photos, item.id)?.thumbnailUrl}
-              />
-              <Meta title={item.company.name} className="cardContentMeta" />
-              <div>
-                <IconText icon={<FileTextOutlined />} text="Contract" />
-                <IconText icon={<UserOutlined />} text="150 users" />
-                <Text type="secondary">
-                  <IconText text="Last update 3 days ago" />
-                </Text>
+            <Card
+              key={`${new Date().getTime()}`}
+              style={{ width: 320, height: 240 }}
+              cover={
+                <img
+                  alt=""
+                  style={{ width: 320, height: 110 }}
+                  src={matchPhoto(photos, item.id + 10)?.url}
+                />
+              }
+            >
+              <div className="cardContentWrapper">
+                <img
+                  alt=""
+                  className="cardContentImage"
+                  src={matchPhoto(photos, item.id)?.thumbnailUrl}
+                />
+                <Meta title={item.company.name} className="cardContentMeta" />
+                <div>
+                  <IconText icon={<FileTextOutlined />} text="Contract" />
+                  <IconText icon={<UserOutlined />} text="150 users" />
+                  <Text type="secondary">
+                    <IconText text="Last update 3 days ago" />
+                  </Text>
+                </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+          </Link>
         ))}
       </Carousel>
     </div>
