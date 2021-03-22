@@ -36,13 +36,13 @@ const WorkspacesSlider = () => {
       >
         {(users || []).map((item) => (
           <Link
+            key={`${new Date().getTime()}`}
             to={{
               pathname: `/workspace/${item.id}`,
               state: { title: item.company.name },
             }}
           >
             <Card
-              key={`${new Date().getTime()}`}
               style={{ width: 320, height: 240 }}
               cover={
                 <img

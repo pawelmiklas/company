@@ -73,7 +73,9 @@ const ResumeList: FC<ResumeListProps> = ({ withTags = false }) => {
     () => (
       <Row style={{ paddingBottom: 16 }}>
         {tags.map((item) => (
-          <Tag color={randomColor()}>{item}</Tag>
+          <Tag key={item} color={randomColor()}>
+            {item}
+          </Tag>
         ))}
       </Row>
     ),
