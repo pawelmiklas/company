@@ -27,6 +27,7 @@ import {
 import { usePhotos } from "api/usePhotos";
 import { useUsers } from "api/useUsers";
 import React, { FC, ReactNode, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useStore } from "store/store";
 import { matchPhoto } from "utils/collectionMatches";
 import { colors } from "utils/theme";
@@ -150,20 +151,28 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
                 <Button icon={<PlusOutlined />} />
               </div>
             </Card>
-            <div className="siderItem" style={{ marginTop: 16 }}>
-              <FileTextOutlined style={{ fontSize: "32px", paddingRight: 8 }} />
-              Publications
-            </div>
-            <div className="siderItem">
-              <RadarChartOutlined
-                style={{ fontSize: "32px", paddingRight: 8 }}
-              />
-              Ecosystem
-            </div>
-            <div className="siderItem">
-              <HddOutlined style={{ fontSize: "32px", paddingRight: 8 }} />
-              Entities
-            </div>
+            <Link to="/404">
+              <div className="siderItem" style={{ marginTop: 16 }}>
+                <FileTextOutlined
+                  style={{ fontSize: "32px", paddingRight: 8 }}
+                />
+                Publications
+              </div>
+            </Link>
+            <Link to="/404">
+              <div className="siderItem">
+                <RadarChartOutlined
+                  style={{ fontSize: "32px", paddingRight: 8 }}
+                />
+                Ecosystem
+              </div>
+            </Link>
+            <Link to="/entities">
+              <div className="siderItem">
+                <HddOutlined style={{ fontSize: "32px", paddingRight: 8 }} />
+                Entities
+              </div>
+            </Link>
           </Sider>
           <Content>{children}</Content>
         </Layout>

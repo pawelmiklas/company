@@ -1,6 +1,8 @@
 import { Spin } from "antd";
 import LayoutPage from "components/LayoutPage/LayoutPage";
 import DashboardPage from "pages/DashboardPage/DashboardPage";
+import EntitiesPage from "pages/EntitiesPage/EntitiesPage";
+import NotFoundPage from "pages/NotFoundPage/NotFoundPage";
 import WorkspacesPage from "pages/WorkspacesPage/WorkspacesPage";
 import React, { Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -23,9 +25,10 @@ const App = () => {
           <LayoutPage>
             <Switch>
               <Route path="/dashboard" component={DashboardPage} />
-              <Route path="/entities" component={() => <div></div>} />
+              <Route path="/entities" component={EntitiesPage} />
               <Route path="/publications" component={() => <div></div>} />
               <Route path="/workspace/:id" component={WorkspacesPage} />
+              <Route path="/404" component={NotFoundPage} />
               <Redirect to="/dashboard" />
             </Switch>
           </LayoutPage>
