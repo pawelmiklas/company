@@ -1,8 +1,8 @@
 import {
   DownOutlined,
+  FullscreenOutlined,
   RedEnvelopeOutlined,
   SearchOutlined,
-  FullscreenOutlined,
 } from "@ant-design/icons";
 import {
   Avatar,
@@ -15,18 +15,30 @@ import {
   Pagination,
   Row,
   Skeleton,
+  Tag,
   Typography,
 } from "antd";
-import { useComments } from "api/useComments";
+import { Post, useComments } from "api/useComments";
 import IconText from "components/IconText/IconText";
 import useDebounce from "hooks/useDebounce";
-import React, { useCallback, useState } from "react";
+import React, { FC, useCallback, useMemo, useState } from "react";
 import { useStore } from "store/store";
 import { matchPhoto, matchUser } from "utils/collectionMatches";
+import { randomColor } from "utils/randomColors";
 import { colors } from "utils/theme";
 import "./ResumeList.css";
 
-const skeletonData = [...Array(10).keys()].map((item) => ({
+const tags = [
+  "All",
+  "SAS",
+  "SARL",
+  "Secondary business",
+  "Communities",
+  "POA",
+  "Survey",
+];
+
+const skeletonData: Post[] = [...Array(20).keys()].map((item) => ({
   body: "",
   email: "",
   id: item,
@@ -36,19 +48,37 @@ const skeletonData = [...Array(10).keys()].map((item) => ({
 
 const { Text, Title } = Typography;
 
-const ResumeList = () => {
+type ResumeListProps = {
+  withTags?: boolean;
+};
+
+const ResumeList: FC<ResumeListProps> = ({ withTags = false }) => {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("");
   const [dropDownValue, setDropDownValue] = useState<"Followed" | "My">(
     "Followed"
   );
   const debouncedFilter = useDebounce(filter, 300);
-  const { data, isLoading } = useComments({
+  const { data, isFetching } = useComments({
     from: page,
     limit: 10,
     name: debouncedFilter,
     postId: dropDownValue === "My" ? 1 : undefined,
+    options: {
+      placeholderData: skeletonData,
+    },
   });
+
+  const TagsMemo = useMemo(
+    () => (
+      <Row style={{ paddingBottom: 16 }}>
+        {tags.map((item) => (
+          <Tag color={randomColor()}>{item}</Tag>
+        ))}
+      </Row>
+    ),
+    []
+  );
 
   const { users, photos } = useStore(useCallback((state) => state, []));
 
@@ -102,11 +132,12 @@ const ResumeList = () => {
           </div>
         </Col>
       </Row>
+      {withTags && TagsMemo}
       <List
         grid={{ gutter: 16, xl: 1, lg: 1, md: 1, sm: 1, xs: 1, xxl: 1 }}
-        dataSource={data || skeletonData}
+        dataSource={data}
         renderItem={(item) => (
-          <Skeleton loading={isLoading} paragraph={{ rows: 2 }}>
+          <Skeleton loading={isFetching} paragraph={{ rows: 2 }}>
             <List.Item>
               <Card>
                 <Title level={5} style={{ color: colors.primary }}>
