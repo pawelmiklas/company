@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useQuery } from "react-query";
+import { useQuery, UseQueryOptions } from "react-query";
 
-type Post = {
+export type Post = {
   body: string;
   email: string;
   id: number;
@@ -14,6 +14,7 @@ type UseComments = {
   from?: number;
   limit?: number;
   postId?: number;
+  options?: UseQueryOptions<Post[]>;
 };
 
 export function useComments({
@@ -21,6 +22,7 @@ export function useComments({
   limit = 10,
   name,
   postId,
+  options,
 }: UseComments) {
   return useQuery<Post[]>(
     ["posts", { from, limit, name, postId }],
@@ -41,6 +43,7 @@ export function useComments({
 
       const { data } = await axios.get(url);
       return data;
-    }
+    },
+    options
   );
 }

@@ -1,13 +1,21 @@
 import axios from "axios";
-import { useQuery } from "react-query";
+import { useQuery, UseQueryOptions } from "react-query";
 import { User } from "store/types";
 
-export function useUsers() {
-  return useQuery<User[]>(["users"], async () => {
-    const { data } = await axios.get(
-      "https://jsonplaceholder.typicode.com/users"
-    );
+type UseUsers = {
+  options?: UseQueryOptions<User[]>;
+};
 
-    return data;
-  });
+export function useUsers({ options }: UseUsers) {
+  return useQuery<User[]>(
+    ["users"],
+    async () => {
+      const { data } = await axios.get(
+        "https://jsonplaceholder.typicode.com/users"
+      );
+
+      return data;
+    },
+    options
+  );
 }
