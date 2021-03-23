@@ -83,9 +83,11 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
           justifyContent: "space-between",
         }}
       >
-        <div className="LogoWrapper">
-          <MediumOutlined style={{ fontSize: "24px" }} />
-        </div>
+        <Link to="/dashboard">
+          <div className="LogoWrapper">
+            <MediumOutlined style={{ fontSize: "24px", color: "black" }} />
+          </div>
+        </Link>
         <div style={{ width: "15%" }}>
           <Dropdown overlay={menu} trigger={["click"]}>
             <a onClick={(e) => e.preventDefault()}>
@@ -100,9 +102,11 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
           />
         </div>
         <div className="badgeWrapper">
-          <Badge className="badge" count={0}>
-            <HomeOutlined style={{ fontSize: "24px" }} />
-          </Badge>
+          <Link to="/dashboard">
+            <Badge className="badge" count={0}>
+              <HomeOutlined style={{ fontSize: "24px" }} />
+            </Badge>
+          </Link>
           <Badge
             className="badge"
             count={3}
@@ -143,12 +147,16 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
               <div className="cardSiderItem">
                 <UsergroupDeleteOutlined style={{ fontSize: "24px" }} />
                 <p>Your Network</p>
-                <Button icon={<UserAddOutlined />} />
+                <Link to="/404">
+                  <Button icon={<UserAddOutlined />} />
+                </Link>
               </div>
               <div className="cardSiderItem">
                 <TableOutlined style={{ fontSize: "24px" }} />
                 <p>Your Publications</p>
-                <Button icon={<PlusOutlined />} />
+                <Link to="/404">
+                  <Button icon={<PlusOutlined />} />
+                </Link>
               </div>
             </Card>
             <Link to="/404">
