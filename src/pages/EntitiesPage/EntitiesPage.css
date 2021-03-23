@@ -1,9 +1,35 @@
-.workspacesCardWrapper {
-  padding: 16px;
-  margin: 16px 0;
-  background-color: #e3e3e3;
+.entitiesWrapper {
+  padding: 16px 0;
 }
 
-.workspacesWrapper {
-  padding: 16px 0;
+.entityImage {
+  width: 80px;
+  margin-left: -8px;
+}
+
+.entitiesInput {
+  width: 210px !important;
+}
+
+.entitiesHeadingWrapper {
+  display: flex;
+}
+
+.entitiesDropDown {
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.entityFilterButton {
+  padding: 0 8px;
+}
+
+.entityDivider {
+  height: 30px;
+}
+
+.entityFilterRow {
+  padding: 4px 0;
 }
