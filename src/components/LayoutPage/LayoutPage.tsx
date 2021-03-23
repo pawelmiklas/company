@@ -55,7 +55,7 @@ type LayoutPageProps = {
 
 const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
   const { data } = useUsers({});
-  const { data: photosData } = usePhotos();
+  const { data: photosData } = usePhotos({ from: 0, limit: 60 });
   const { setPhotos, setUsers, users, photos } = useStore();
 
   useEffect(() => {
