@@ -136,10 +136,10 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
               </div>
             </Link>
           </Col>
-          <Col span={5}>
+          <Col span={7}>
             <Select
               defaultValue="Corporate"
-              style={{ width: "90%" }}
+              style={{ width: "60%" }}
               onChange={() => {}}
               dropdownRender={(menu) => (
                 <div>
@@ -226,7 +226,7 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
               ))}
             </Select>
           </Col>
-          <Col span={12}>
+          <Col span={10}>
             <Input
               placeholder="Search legal cluster"
               suffix={<SearchOutlined />}
