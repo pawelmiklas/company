@@ -1,0 +1,12 @@
+.cardSiderItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+  font-weight: 500;
+}
+
+.cardSiderItem > p {
+  width: 60%;
+  margin: 0;
+}

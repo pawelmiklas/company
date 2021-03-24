@@ -16,12 +16,13 @@ import {
 import {
   Avatar,
   Badge,
-  Button,
   Card,
+  Col,
   Dropdown,
   Input,
   Layout,
   Menu,
+  Row,
   Typography,
 } from "antd";
 import { usePhotos } from "api/usePhotos";
@@ -31,6 +32,8 @@ import { Link } from "react-router-dom";
 import { useStore } from "store/store";
 import { matchPhoto } from "utils/collectionMatches";
 import { colors } from "utils/theme";
+import CardSiderItem from "./components/CardSiderItem/CardSiderItem";
+import PageListItem from "./components/PageListItem/PageListItem";
 import "./LayoutPage.css";
 
 const { Header, Sider, Content } = Layout;
@@ -83,45 +86,49 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
           justifyContent: "space-between",
         }}
       >
-        <Link to="/dashboard">
-          <div className="LogoWrapper">
-            <MediumOutlined style={{ fontSize: "24px", color: "black" }} />
-          </div>
-        </Link>
-        <div style={{ width: "15%" }}>
-          <Dropdown overlay={menu} trigger={["click"]}>
-            <a onClick={(e) => e.preventDefault()}>
-              Home <DownOutlined />
-            </a>
-          </Dropdown>
-        </div>
-        <div style={{ width: "35%" }}>
-          <Input
-            placeholder="Search legal cluster"
-            suffix={<SearchOutlined />}
-          />
-        </div>
-        <div className="badgeWrapper">
-          <Link to="/dashboard">
-            <Badge className="badge" count={0}>
-              <HomeOutlined style={{ fontSize: "24px" }} />
+        <Row style={{ width: "100%" }}>
+          <Col span={1}>
+            <Link to="/dashboard">
+              <div className="LogoWrapper">
+                <MediumOutlined style={{ fontSize: "24px", color: "black" }} />
+              </div>
+            </Link>
+          </Col>
+          <Col span={5}>
+            <Dropdown overlay={menu} trigger={["click"]}>
+              <span onClick={(e) => e.preventDefault()}>
+                Home <DownOutlined />
+              </span>
+            </Dropdown>
+          </Col>
+          <Col span={12}>
+            <Input
+              placeholder="Search legal cluster"
+              suffix={<SearchOutlined />}
+            />
+          </Col>
+          <Col span={6} className="badgeWrapper">
+            <Link to="/dashboard">
+              <Badge className="badge" count={0}>
+                <HomeOutlined style={{ fontSize: "24px" }} />
+              </Badge>
+            </Link>
+            <Badge
+              className="badge"
+              count={3}
+              style={{ backgroundColor: colors.primary }}
+            >
+              <WechatOutlined style={{ fontSize: "24px" }} />
             </Badge>
-          </Link>
-          <Badge
-            className="badge"
-            count={3}
-            style={{ backgroundColor: colors.primary }}
-          >
-            <WechatOutlined style={{ fontSize: "24px" }} />
-          </Badge>
-          <Badge
-            className="badge"
-            count={3}
-            style={{ backgroundColor: colors.primary }}
-          >
-            <BellOutlined style={{ fontSize: "24px" }} />
-          </Badge>
-        </div>
+            <Badge
+              className="badge"
+              count={3}
+              style={{ backgroundColor: colors.primary }}
+            >
+              <BellOutlined style={{ fontSize: "24px" }} />
+            </Badge>
+          </Col>
+        </Row>
       </Header>
       <main style={{ display: "flex", justifyContent: "center" }}>
         <Layout style={{ height: "100vh", maxWidth: 1400 }}>
@@ -144,43 +151,34 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
                 </div>
               }
             >
-              <div className="cardSiderItem">
-                <UsergroupDeleteOutlined style={{ fontSize: "24px" }} />
-                <p>Your Network</p>
-                <Link to="/404">
-                  <Button icon={<UserAddOutlined />} />
-                </Link>
-              </div>
-              <div className="cardSiderItem">
-                <TableOutlined style={{ fontSize: "24px" }} />
-                <p>Your Publications</p>
-                <Link to="/404">
-                  <Button icon={<PlusOutlined />} />
-                </Link>
-              </div>
+              <CardSiderItem
+                to="/404"
+                name="Your Network"
+                buttonIcon={<UserAddOutlined />}
+                icon={<UsergroupDeleteOutlined />}
+              />
+              <CardSiderItem
+                to="/404"
+                name="Your Publications"
+                buttonIcon={<TableOutlined />}
+                icon={<PlusOutlined />}
+              />
             </Card>
-            <Link to="/404">
-              <div className="siderItem" style={{ marginTop: 16 }}>
-                <FileTextOutlined
-                  style={{ fontSize: "32px", paddingRight: 8 }}
-                />
-                Publications
-              </div>
-            </Link>
-            <Link to="/404">
-              <div className="siderItem">
-                <RadarChartOutlined
-                  style={{ fontSize: "32px", paddingRight: 8 }}
-                />
-                Ecosystem
-              </div>
-            </Link>
-            <Link to="/entities">
-              <div className="siderItem">
-                <HddOutlined style={{ fontSize: "32px", paddingRight: 8 }} />
-                Entities
-              </div>
-            </Link>
+            <PageListItem
+              to="/404"
+              icon={<FileTextOutlined />}
+              name="Publications"
+            />
+            <PageListItem
+              to="/404"
+              icon={<RadarChartOutlined />}
+              name="Ecosystem"
+            />
+            <PageListItem
+              to="/entities"
+              icon={<HddOutlined />}
+              name="Entities"
+            />
           </Sider>
           <Content>{children}</Content>
         </Layout>

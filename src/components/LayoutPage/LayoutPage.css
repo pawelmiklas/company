@@ -9,11 +9,9 @@
 }
 
 .badgeWrapper {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
 }
 
 .badge {
