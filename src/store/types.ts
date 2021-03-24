@@ -33,3 +33,10 @@ export type Photo = {
   url: string;
   thumbnailUrl: string;
 };
+
+export type Post = {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+};

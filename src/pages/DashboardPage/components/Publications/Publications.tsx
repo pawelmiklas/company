@@ -1,81 +1,108 @@
-import { UserOutlined } from "@ant-design/icons";
-import { Card, Col, Image, List, Row, Typography } from "antd";
-import IconText from "components/IconText/IconText";
+import { Avatar, Col, List, Row, Typography } from "antd";
+import { usePosts } from "api/usePosts";
 import React from "react";
-
-const listData: {
-  href: string;
-  title: string;
-  avatar: string;
-  description: string;
-  content: string;
-}[] = [];
-
-for (let i = 0; i < 3; i++) {
-  listData.push({
-    href: "https://ant.design",
-    title: `ant design part ${i}`,
-    avatar: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    description:
-      "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-    content:
-      "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.",
-  });
-}
+import { useStore } from "store/store";
+import { matchPhoto, matchUser } from "utils/collectionMatches";
 
 const { Text, Title } = Typography;
 
 const Publications = () => {
+  const { data } = usePosts({ limit: 4 });
+  const { users, photos } = useStore();
+
+  if (!data) {
+    return null;
+  }
+
+  const [firstPost, ...restPosts] = data;
+
   return (
-    <Row>
-      <Col span={8}>
-        <Image
-          style={{ height: 354 }}
-          preview={false}
-          src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+    <Row style={{ backgroundColor: "#fff" }}>
+      <Col span={8} style={{ position: "relative" }}>
+        <img
+          style={{ height: 320, width: "100%" }}
+          src={matchPhoto(photos, firstPost.id)?.url}
+          alt=""
         />
-      </Col>
-      <Col span={16}>
-        <Card
+        <Col
           style={{
-            maxHeight: 354,
-            height: "100%",
+            position: "absolute",
+            bottom: "2%",
+            left: "4%",
           }}
         >
-          <List
-            itemLayout="vertical"
+          <Title
+            level={5}
+            style={{
+              color: "#fff",
+            }}
+          >
+            {firstPost.title}
+          </Title>
+          <Text
+            type="secondary"
+            style={{
+              marginRight: 8,
+              color: "#fff",
+            }}
+          >
+            7 jan 2020
+          </Text>
+          <Avatar
             size="small"
-            dataSource={listData}
-            renderItem={(item) => (
-              <List.Item actions={[]}>
-                <List.Item.Meta
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: 0,
-                  }}
-                  avatar={
-                    <img
-                      width={90}
-                      alt="logo"
-                      src="https://via.placeholder.com/150/f66b97"
-                    />
-                  }
-                  title={
-                    <div>
-                      <Title level={5}>{item.description}</Title>
-                      <Text type="secondary" style={{ marginRight: 8 }}>
-                        7 jan 2020
-                      </Text>
-                      <IconText icon={<UserOutlined />} text="John Doe" />
-                    </div>
-                  }
-                />
-              </List.Item>
-            )}
+            src={matchPhoto(photos, firstPost.id)?.thumbnailUrl}
           />
-        </Card>
+          <Text
+            type="secondary"
+            style={{
+              marginLeft: 8,
+              color: "#fff",
+            }}
+          >
+            {matchUser(users, firstPost.id)?.name}
+          </Text>
+        </Col>
+      </Col>
+      <Col span={16}>
+        <List
+          itemLayout="vertical"
+          size="small"
+          dataSource={restPosts}
+          renderItem={(item) => (
+            <List.Item actions={[]}>
+              <List.Item.Meta
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  margin: 0,
+                }}
+                avatar={
+                  <img
+                    width={90}
+                    alt="logo"
+                    src={matchPhoto(photos, item.id)?.url}
+                  />
+                }
+                title={
+                  <div>
+                    <Title level={5}>{item.title}</Title>
+                    <Text type="secondary" style={{ marginRight: 8 }}>
+                      7 jan 2020
+                    </Text>
+                    <Avatar
+                      size="small"
+                      src={matchPhoto(photos, item.id)?.thumbnailUrl}
+                    />
+                    <Text type="secondary" style={{ marginLeft: 8 }}>
+                      {matchUser(users, item.id)?.name}
+                    </Text>
+                  </div>
+                }
+              />
+            </List.Item>
+          )}
+        />
       </Col>
     </Row>
   );
