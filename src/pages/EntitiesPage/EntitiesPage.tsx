@@ -1,12 +1,10 @@
 import {
   AppstoreOutlined,
-  CloseOutlined,
   CompressOutlined,
   DashOutlined,
   DownOutlined,
   FilterOutlined,
   FullscreenOutlined,
-  PlusOutlined,
   SearchOutlined,
   ShareAltOutlined,
   SortAscendingOutlined,
@@ -28,6 +26,7 @@ import {
 import React, { useMemo, useState } from "react";
 import { useStore } from "store/store";
 import { colors } from "utils/theme";
+import Filters from "./components/Filters/Filters";
 import "./EntitiesPage.css";
 
 const { Title, Text } = Typography;
@@ -178,100 +177,7 @@ const EntitiesPage = () => {
           </div>
         </Col>
       </Row>
-      {isFilterShown && (
-        <Card style={{ marginBottom: 16 }}>
-          <Row gutter={16} style={{ paddingBottom: 16, padding: 0 }}>
-            <Col span={24}>
-              <Row className="entityFilterRow">
-                <Button
-                  className="entityFilterButton"
-                  type="text"
-                  icon={<CloseOutlined />}
-                >
-                  Where
-                </Button>
-                <Select
-                  defaultValue="Company"
-                  bordered={false}
-                  style={{ width: 110 }}
-                />
-                <Select
-                  defaultValue="Contains"
-                  bordered={false}
-                  style={{ width: 100 }}
-                />
-                <Input placeholder="Type..." style={{ width: 100 }} />
-              </Row>
-              <Row className="entityFilterRow">
-                <Button
-                  className="entityFilterButton"
-                  type="text"
-                  icon={<CloseOutlined />}
-                >
-                  Where
-                </Button>
-                <Select
-                  defaultValue="Status"
-                  bordered={false}
-                  style={{ width: 100 }}
-                />
-                <Select
-                  defaultValue="Is"
-                  bordered={false}
-                  style={{ width: 60 }}
-                />
-                <Input placeholder="Type..." style={{ width: 100 }} />
-                <Select
-                  defaultValue="In"
-                  bordered={false}
-                  style={{ width: 60 }}
-                />
-                <Input placeholder="Entity..." style={{ width: 100 }} />
-              </Row>
-              <Row className="entityFilterRow">
-                <Button
-                  className="entityFilterButton"
-                  type="text"
-                  icon={<CloseOutlined />}
-                >
-                  And
-                </Button>
-                <Select
-                  defaultValue="Status"
-                  bordered={false}
-                  style={{ width: 100 }}
-                />
-                <Select
-                  defaultValue="Ends before"
-                  bordered={false}
-                  style={{ width: 120 }}
-                />
-                <Input placeholder="Date" style={{ width: 100 }} />
-                <Select
-                  defaultValue="In"
-                  bordered={false}
-                  style={{ width: 60 }}
-                />
-                <Input placeholder="Entity..." style={{ width: 100 }} />
-              </Row>
-              <Row className="entityFilterRow">
-                <Button
-                  className="entityFilterButton"
-                  type="text"
-                  icon={<PlusOutlined />}
-                >
-                  Add filter
-                </Button>
-                <Select
-                  defaultValue="choose property"
-                  bordered={false}
-                  style={{ width: 150 }}
-                />
-              </Row>
-            </Col>
-          </Row>
-        </Card>
-      )}
+      {isFilterShown && <Filters />}
       <Row gutter={[16, 16]}>
         {filteredPhotos.map((item) => (
           <Col key={item.id} span={radioValue === "mosaic" ? 6 : 24}>
