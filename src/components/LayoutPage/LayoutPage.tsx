@@ -229,9 +229,9 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
               )}
             >
               {filteredMenuOptions.map((options) => (
-                <OptGroup label={options.group}>
+                <OptGroup key={options.group} label={options.group}>
                   {options.items.map(({ name, icon }) => (
-                    <Option value={name}>
+                    <Option key={name} value={name}>
                       {icon}
                       {name}
                     </Option>
