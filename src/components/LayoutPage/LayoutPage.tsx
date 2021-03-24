@@ -1,9 +1,9 @@
 import {
   BellOutlined,
-  DownOutlined,
   FileTextOutlined,
   HddOutlined,
   HomeOutlined,
+  LogoutOutlined,
   MediumOutlined,
   PlusOutlined,
   RadarChartOutlined,
@@ -11,18 +11,25 @@ import {
   TableOutlined,
   UserAddOutlined,
   UsergroupDeleteOutlined,
+  UnorderedListOutlined,
   WechatOutlined,
+  SettingOutlined,
+  EditOutlined,
+  BookOutlined,
+  ReadOutlined,
+  TeamOutlined,
+  ContainerOutlined,
 } from "@ant-design/icons";
 import {
   Avatar,
   Badge,
   Card,
   Col,
-  Dropdown,
+  Divider,
   Input,
   Layout,
-  Menu,
   Row,
+  Select,
   Typography,
 } from "antd";
 import { usePhotos } from "api/usePhotos";
@@ -38,19 +45,54 @@ import "./LayoutPage.css";
 
 const { Header, Sider, Content } = Layout;
 const { Text, Title } = Typography;
+const { Option, OptGroup } = Select;
 
-const menu = (
-  <Menu>
-    <Menu.Item key="0">
-      <a href="https://www.antgroup.com">1st menu item</a>
-    </Menu.Item>
-    <Menu.Item key="1">
-      <a href="https://www.aliyun.com">2nd menu item</a>
-    </Menu.Item>
-    <Menu.Divider />
-    <Menu.Item key="3">3rd menu item</Menu.Item>
-  </Menu>
-);
+const menuOptions = [
+  {
+    group: "Platform",
+    items: [
+      { name: "Home", icon: <HomeOutlined className="iconSpacingToText" /> },
+      {
+        name: "Publications",
+        icon: <UnorderedListOutlined className="iconSpacingToText" />,
+      },
+      { name: "People", icon: <TeamOutlined className="iconSpacingToText" /> },
+      {
+        name: "Entities",
+        icon: <ContainerOutlined className="iconSpacingToText" />,
+      },
+      {
+        name: "Administration",
+        icon: <TeamOutlined className="iconSpacingToText" />,
+      },
+    ],
+  },
+  {
+    group: "Workspaces",
+    items: [
+      {
+        name: "Client contract",
+        icon: <EditOutlined className="iconSpacingToText" />,
+      },
+      {
+        name: "Supplier contract",
+        icon: <EditOutlined className="iconSpacingToText" />,
+      },
+      {
+        name: "Corporate",
+        icon: <ReadOutlined className="iconSpacingToText" />,
+      },
+      {
+        name: "Group Norms",
+        icon: <BookOutlined className="iconSpacingToText" />,
+      },
+      {
+        name: "Real estate contracts",
+        icon: <EditOutlined className="iconSpacingToText" />,
+      },
+    ],
+  },
+];
 
 type LayoutPageProps = {
   children: ReactNode;
@@ -95,11 +137,94 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
             </Link>
           </Col>
           <Col span={5}>
-            <Dropdown overlay={menu} trigger={["click"]}>
-              <span onClick={(e) => e.preventDefault()}>
-                Home <DownOutlined />
-              </span>
-            </Dropdown>
+            <Select
+              defaultValue="Corporate"
+              style={{ width: "90%" }}
+              onChange={() => {}}
+              dropdownRender={(menu) => (
+                <div>
+                  <Input
+                    placeholder="Filter..."
+                    value=""
+                    onChange={() => {}}
+                    style={{ margin: 8, width: "94%" }}
+                  />
+                  <Divider style={{ margin: "4px 0" }} />
+                  {menu}
+                  <Divider style={{ margin: "4px 0" }} />
+                  <Text type="secondary" style={{ paddingLeft: 8 }}>
+                    Account
+                  </Text>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "4px 24px",
+                    }}
+                  >
+                    <Avatar
+                      size={32}
+                      style={{ marginRight: 8 }}
+                      src={matchPhoto(photos, users[0].id)?.thumbnailUrl}
+                    />
+                    <Col>
+                      <Title level={5} style={{ marginBottom: 0 }}>
+                        {users[0].name || ""}
+                      </Title>
+                      <Text
+                        type="secondary"
+                        style={{ color: colors.primary, marginBottom: 0 }}
+                      >
+                        See profile
+                      </Text>
+                    </Col>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "4px 24px",
+                    }}
+                  >
+                    <SettingOutlined className="iconSpacingToText" />
+                    Privacy
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "4px 24px",
+                    }}
+                  >
+                    <SettingOutlined className="iconSpacingToText" />
+                    Settings
+                  </div>
+                  <Divider style={{ margin: "4px 0" }} />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "4px 24px",
+                    }}
+                  >
+                    <LogoutOutlined className="iconSpacingToText" />
+                    Logout
+                  </div>
+                </div>
+              )}
+            >
+              {menuOptions.map((options) => (
+                <OptGroup label={options.group}>
+                  {options.items.map(({ name, icon }) => (
+                    <Option value={name}>
+                      {icon}
+                      {name}
+                    </Option>
+                  ))}
+                </OptGroup>
+              ))}
+            </Select>
           </Col>
           <Col span={12}>
             <Input

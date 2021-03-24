@@ -54,3 +54,7 @@
   flex-direction: column;
   align-items: center;
 }
+
+.iconSpacingToText {
+  padding-right: 8px;
+}
