@@ -34,7 +34,7 @@ import {
 } from "antd";
 import { usePhotos } from "api/usePhotos";
 import { useUsers } from "api/useUsers";
-import React, { FC, ReactNode, useEffect } from "react";
+import React, { FC, ReactNode, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useStore } from "store/store";
 import { matchPhoto } from "utils/collectionMatches";
@@ -102,6 +102,7 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
   const { data } = useUsers({});
   const { data: photosData } = usePhotos({ from: 0, limit: 60 });
   const { setPhotos, setUsers, users, photos } = useStore();
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     if (data) {
@@ -114,6 +115,17 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
       setPhotos(photosData);
     }
   }, [photosData, setPhotos]);
+
+  const filteredMenuOptions = useMemo(
+    () =>
+      menuOptions.map(({ group, items }) => ({
+        group,
+        items: items.filter(({ name }) =>
+          name.toLowerCase().includes(filter.toLowerCase())
+        ),
+      })),
+    [filter]
+  );
 
   if (users.length === 0 || photos.length === 0) {
     return null;
@@ -145,8 +157,10 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
                 <div>
                   <Input
                     placeholder="Filter..."
-                    value=""
-                    onChange={() => {}}
+                    value={filter}
+                    onChange={(e) => {
+                      setFilter(e.target.value);
+                    }}
                     style={{ margin: 8, width: "94%" }}
                   />
                   <Divider style={{ margin: "4px 0" }} />
@@ -214,7 +228,7 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
                 </div>
               )}
             >
-              {menuOptions.map((options) => (
+              {filteredMenuOptions.map((options) => (
                 <OptGroup label={options.group}>
                   {options.items.map(({ name, icon }) => (
                     <Option value={name}>
