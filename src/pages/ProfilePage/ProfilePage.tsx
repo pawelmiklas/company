@@ -37,7 +37,7 @@ import {
   reviewsData,
 } from "./ProdilePage.utils";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 const { Option } = Select;
 
 const options = [
@@ -255,12 +255,14 @@ const ProfilePage = () => {
                           }}
                         >
                           {options.map((item) => (
-                            <Option value={item}>{item}</Option>
+                            <Option key={item} value={item}>
+                              {item}
+                            </Option>
                           ))}
                         </Select>
                       ) : (
                         form.values.expertise.map((item) => (
-                          <Tag color="blue" style={{ margin: 4 }}>
+                          <Tag key={item} color="blue" style={{ margin: 4 }}>
                             {item}
                           </Tag>
                         ))
@@ -281,12 +283,14 @@ const ProfilePage = () => {
                           }}
                         >
                           {options.map((item) => (
-                            <Option value={item}>{item}</Option>
+                            <Option key={item} value={item}>
+                              {item}
+                            </Option>
                           ))}
                         </Select>
                       ) : (
                         form.values.specialties.map((item) => (
-                          <Tag color="blue" style={{ margin: 4 }}>
+                          <Tag key={item} color="blue" style={{ margin: 4 }}>
                             {item}
                           </Tag>
                         ))
@@ -307,12 +311,14 @@ const ProfilePage = () => {
                           }}
                         >
                           {options.map((item) => (
-                            <Option value={item}>{item}</Option>
+                            <Option key={item} value={item}>
+                              {item}
+                            </Option>
                           ))}
                         </Select>
                       ) : (
                         form.values.admission.map((item) => (
-                          <Tag color="blue" style={{ margin: 4 }}>
+                          <Tag key={item} color="blue" style={{ margin: 4 }}>
                             {item}
                           </Tag>
                         ))
@@ -333,12 +339,14 @@ const ProfilePage = () => {
                           }}
                         >
                           {options.map((item) => (
-                            <Option value={item}>{item}</Option>
+                            <Option key={item} value={item}>
+                              {item}
+                            </Option>
                           ))}
                         </Select>
                       ) : (
                         form.values.counties.map((item) => (
-                          <Tag color="blue" style={{ margin: 4 }}>
+                          <Tag key={item} color="blue" style={{ margin: 4 }}>
                             {item}
                           </Tag>
                         ))
