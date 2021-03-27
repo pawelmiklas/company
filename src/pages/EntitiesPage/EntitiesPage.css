@@ -27,7 +27,7 @@
 }
 
 .entityDivider {
-  height: 30px;
+  height: 30px !important;
 }
 
 .entityFilterRow {

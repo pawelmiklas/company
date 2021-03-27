@@ -47,7 +47,15 @@ const { Header, Sider, Content } = Layout;
 const { Text, Title } = Typography;
 const { Option, OptGroup } = Select;
 
-const menuOptions = [
+type MenuOptions = {
+  group: string;
+  items: {
+    name: string;
+    icon: JSX.Element;
+  }[];
+}[];
+
+const menuOptions: MenuOptions = [
   {
     group: "Platform",
     items: [
@@ -185,12 +193,14 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
                       <Title level={5} style={{ marginBottom: 0 }}>
                         {users[0].name || ""}
                       </Title>
-                      <Text
-                        type="secondary"
-                        style={{ color: colors.primary, marginBottom: 0 }}
-                      >
-                        See profile
-                      </Text>
+                      <Link to="/profile">
+                        <Text
+                          type="secondary"
+                          style={{ color: colors.primary, marginBottom: 0 }}
+                        >
+                          See profile
+                        </Text>
+                      </Link>
                     </Col>
                   </div>
                   <div
@@ -274,20 +284,22 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
           <Sider style={{ padding: 16, width: 300 }}>
             <Card
               title={
-                <div className="cardTitleWrapper">
-                  <Avatar
-                    size={64}
-                    src={matchPhoto(photos, users[0].id)?.thumbnailUrl}
-                  />
-                  <Title
-                    level={5}
-                    style={{ margin: "8px 0 0 0", color: colors.primary }}
-                  >
-                    {users[0].name || ""}
-                  </Title>
-                  <Text type="secondary">{`${users[0].company.name}`}</Text>
-                  <Text type="secondary">{`${users[0].address.city}`}</Text>
-                </div>
+                <Link to="/profile">
+                  <div className="cardTitleWrapper">
+                    <Avatar
+                      size={64}
+                      src={matchPhoto(photos, users[0].id)?.thumbnailUrl}
+                    />
+                    <Title
+                      level={5}
+                      style={{ margin: "8px 0 0 0", color: colors.primary }}
+                    >
+                      {users[0].name || ""}
+                    </Title>
+                    <Text type="secondary">{`${users[0].company.name}`}</Text>
+                    <Text type="secondary">{`${users[0].address.city}`}</Text>
+                  </div>
+                </Link>
               }
             >
               <CardSiderItem
