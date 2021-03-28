@@ -24,7 +24,7 @@ import useDebounce from "hooks/useDebounce";
 import React, { FC, useCallback, useMemo, useState } from "react";
 import { useStore } from "store/store";
 import { matchPhoto, matchUser } from "utils/collectionMatches";
-import { randomColor } from "utils/randomColors";
+import { randomColor } from "utils/randomColor";
 import { colors } from "utils/theme";
 import "./ResumeList.css";
 
