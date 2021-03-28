@@ -36,7 +36,7 @@ const WorkspacesSlider = () => {
       >
         {(users || []).map((item) => (
           <Link
-            key={`${new Date().getTime()}`}
+            key={item.id}
             to={{
               pathname: `/workspace/${item.id}`,
               state: { title: item.company.name },
