@@ -7,3 +7,12 @@
 .workspacesWrapper {
   padding: 16px 0;
 }
+
+.workspacesIcon {
+  font-size: 52px;
+  margin-bottom: 8px;
+}
+
+.workspacesCard {
+  width: 100%;
+}

@@ -23,19 +23,19 @@ const list: List[] = [
     title: "Explore your entities",
     description:
       "Ex laborum non officia non magna. In esse nostrud voluptate id sint qui ullamco aliqua nostrud non mollit exercitation quis voluptate. Eiusmod cillum sunt officia duis veniam eu excepteur dolor.",
-    icon: <HomeOutlined style={{ fontSize: 52, marginBottom: 8 }} />,
+    icon: <HomeOutlined className="workspacesIcon" />,
   },
   {
     title: "Structure the ownership",
     description:
       "Et aliqua est ea mollit excepteur enim qui laborum consequat qui nulla incididunt consectetur ut. Enim elit proident Lorem cupidatat anim duis enim incididunt do laboris excepteur.",
-    icon: <PartitionOutlined style={{ fontSize: 52, marginBottom: 8 }} />,
+    icon: <PartitionOutlined className="workspacesIcon" />,
   },
   {
     title: "Define the calendar",
     description:
       "Sint occaecat enim aute aute ad pariatur cupidatat nulla exercitation culpa et non. Nostrud commodo non nulla exercitation aliqua qui enim enim voluptate id esse sint.",
-    icon: <CalendarOutlined style={{ fontSize: 52, marginBottom: 8 }} />,
+    icon: <CalendarOutlined className="workspacesIcon" />,
   },
 ];
 
@@ -47,13 +47,13 @@ const WorkspacesPage = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Card
+            className="workspacesCard"
             bordered={false}
-            style={{ width: "100%" }}
             cover={<img alt="" src={Banner} />}
           >
             <Row gutter={16}>
               <Col>
-                <HomeOutlined style={{ fontSize: 52, marginBottom: 8 }} />
+                <HomeOutlined className="workspacesIcon" />
               </Col>
               <Col>
                 <Title level={5}>{location.state.title}</Title>
