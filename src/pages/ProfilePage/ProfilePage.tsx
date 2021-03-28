@@ -13,7 +13,6 @@ import {
   Descriptions,
   Divider,
   Input,
-  message,
   Row,
   Select,
   Table,
@@ -28,6 +27,7 @@ import React from "react";
 import { useStore } from "store/store";
 import { matchPhoto } from "utils/collectionMatches";
 import { colors } from "utils/theme";
+import "./ProfilePage.css";
 import {
   feesColumns,
   feesData,
@@ -35,7 +35,7 @@ import {
   proposalsData,
   reviewsColumns,
   reviewsData,
-} from "./ProdilePage.utils";
+} from "./ProfilePage.utils";
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -54,19 +54,8 @@ const options = [
 
 const props: UploadProps = {
   name: "file",
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
   headers: {
     authorization: "authorization-text",
-  },
-  onChange(info) {
-    if (info.file.status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (info.file.status === "done") {
-      message.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
   },
 };
 
@@ -94,13 +83,7 @@ const ProfilePage = () => {
       <Row gutter={16}>
         <Col span={24}>
           <Card bordered={false} style={{ width: "100%" }}>
-            <Row
-              style={{
-                marginBottom: 16,
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            >
+            <Row className="profilePageRow">
               <Button type="text" icon={<BorderLeftOutlined />}>
                 Message
               </Button>
@@ -128,14 +111,7 @@ const ProfilePage = () => {
                 </div>
               </Col>
               <Col span={21}>
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    alignItems: "center",
-                    width: "100%",
-                  }}
-                >
+                <Row className="profilePageRowInfo">
                   <Button
                     onClick={setIsProfileEditable}
                     type="text"
@@ -221,13 +197,7 @@ const ProfilePage = () => {
               <Col span={12}>
                 <Descriptions
                   title={
-                    <Row
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
-                    >
+                    <Row className="profilePageInfo">
                       User information
                       <Button
                         type="text"

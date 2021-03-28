@@ -1,0 +1,18 @@
+.profilePageRow {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profilePageRowInfo {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.profilePageInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
