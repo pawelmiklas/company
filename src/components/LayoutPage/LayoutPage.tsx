@@ -1,5 +1,7 @@
 import {
   BellOutlined,
+  ContainerOutlined,
+  EditOutlined,
   FileTextOutlined,
   HddOutlined,
   HomeOutlined,
@@ -8,17 +10,13 @@ import {
   PlusOutlined,
   RadarChartOutlined,
   SearchOutlined,
+  SettingOutlined,
   TableOutlined,
+  TeamOutlined,
+  UnorderedListOutlined,
   UserAddOutlined,
   UsergroupDeleteOutlined,
-  UnorderedListOutlined,
   WechatOutlined,
-  SettingOutlined,
-  EditOutlined,
-  BookOutlined,
-  ReadOutlined,
-  TeamOutlined,
-  ContainerOutlined,
 } from "@ant-design/icons";
 import {
   Avatar,
@@ -34,8 +32,15 @@ import {
 } from "antd";
 import { usePhotos } from "api/usePhotos";
 import { useUsers } from "api/useUsers";
-import React, { FC, ReactNode, useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import React, {
+  FC,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { Link, useHistory } from "react-router-dom";
 import { useStore } from "store/store";
 import { matchPhoto } from "utils/collectionMatches";
 import { colors } from "utils/theme";
@@ -52,51 +57,51 @@ type MenuOptions = {
   items: {
     name: string;
     icon: JSX.Element;
+    link: {
+      pathname: string;
+      state?: object;
+    };
   }[];
 }[];
 
-const menuOptions: MenuOptions = [
+const menuOptionsStatic: MenuOptions = [
   {
     group: "Platform",
     items: [
-      { name: "Home", icon: <HomeOutlined className="iconSpacingToText" /> },
+      {
+        name: "Home",
+        icon: <HomeOutlined className="iconSpacingToText" />,
+        link: {
+          pathname: "/",
+        },
+      },
       {
         name: "Publications",
         icon: <UnorderedListOutlined className="iconSpacingToText" />,
+        link: {
+          pathname: "/404",
+        },
       },
-      { name: "People", icon: <TeamOutlined className="iconSpacingToText" /> },
+      {
+        name: "People",
+        icon: <TeamOutlined className="iconSpacingToText" />,
+        link: {
+          pathname: "/404",
+        },
+      },
       {
         name: "Entities",
         icon: <ContainerOutlined className="iconSpacingToText" />,
+        link: {
+          pathname: "/entities",
+        },
       },
       {
         name: "Administration",
         icon: <TeamOutlined className="iconSpacingToText" />,
-      },
-    ],
-  },
-  {
-    group: "Workspaces",
-    items: [
-      {
-        name: "Client contract",
-        icon: <EditOutlined className="iconSpacingToText" />,
-      },
-      {
-        name: "Supplier contract",
-        icon: <EditOutlined className="iconSpacingToText" />,
-      },
-      {
-        name: "Corporate",
-        icon: <ReadOutlined className="iconSpacingToText" />,
-      },
-      {
-        name: "Group Norms",
-        icon: <BookOutlined className="iconSpacingToText" />,
-      },
-      {
-        name: "Real estate contracts",
-        icon: <EditOutlined className="iconSpacingToText" />,
+        link: {
+          pathname: "/404",
+        },
       },
     ],
   },
@@ -109,7 +114,10 @@ type LayoutPageProps = {
 const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
   const { data } = useUsers({});
   const { data: photosData } = usePhotos({ from: 0, limit: 60 });
-  const { setPhotos, setUsers, users, photos } = useStore();
+  const { setPhotos, setUsers, users, photos } = useStore(
+    useCallback((state) => state, [])
+  );
+  const history = useHistory();
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
@@ -124,6 +132,24 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
     }
   }, [photosData, setPhotos]);
 
+  const menuOptions = useMemo(
+    () => [
+      ...menuOptionsStatic,
+      {
+        group: "Workspaces",
+        items: users.map((item) => ({
+          name: item.company.name,
+          icon: <EditOutlined className="iconSpacingToText" />,
+          link: {
+            pathname: `/workspace/${item.id}`,
+            state: { title: item.company.name },
+          },
+        })),
+      },
+    ],
+    [users]
+  );
+
   const filteredMenuOptions = useMemo(
     () =>
       menuOptions.map(({ group, items }) => ({
@@ -132,7 +158,7 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
           name.toLowerCase().includes(filter.toLowerCase())
         ),
       })),
-    [filter]
+    [filter, menuOptions]
   );
 
   if (users.length === 0 || photos.length === 0) {
@@ -240,8 +266,14 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
             >
               {filteredMenuOptions.map((options) => (
                 <OptGroup key={options.group} label={options.group}>
-                  {options.items.map(({ name, icon }) => (
-                    <Option key={name} value={name}>
+                  {options.items.map(({ name, link, icon }) => (
+                    <Option
+                      key={name}
+                      value={name}
+                      onMouseDown={() => {
+                        history.push(link.pathname, link.state);
+                      }}
+                    >
                       {icon}
                       {name}
                     </Option>
