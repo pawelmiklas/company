@@ -167,13 +167,7 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
 
   return (
     <Layout style={{ height: "100vh", overflow: "auto" }}>
-      <Header
-        style={{
-          backgroundColor: "white",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
+      <Header className="layoutHeader">
         <Row style={{ width: "100%" }}>
           <Col span={1}>
             <Link to="/dashboard">
@@ -203,13 +197,7 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
                   <Text type="secondary" style={{ paddingLeft: 8 }}>
                     Account
                   </Text>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "4px 24px",
-                    }}
-                  >
+                  <div className="layoutSelectItem">
                     <Avatar
                       size={32}
                       style={{ marginRight: 8 }}
@@ -229,35 +217,16 @@ const LayoutPage: FC<LayoutPageProps> = ({ children }) => {
                       </Link>
                     </Col>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "4px 24px",
-                    }}
-                  >
+                  <div className="layoutSelectItem">
                     <SettingOutlined className="iconSpacingToText" />
                     Privacy
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "4px 24px",
-                    }}
-                  >
+                  <div className="layoutSelectItem">
                     <SettingOutlined className="iconSpacingToText" />
                     Settings
                   </div>
                   <Divider style={{ margin: "4px 0" }} />
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      padding: "4px 24px",
-                    }}
-                  >
+                  <div className="layoutSelectLogout">
                     <LogoutOutlined className="iconSpacingToText" />
                     Logout
                   </div>

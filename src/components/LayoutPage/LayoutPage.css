@@ -58,3 +58,22 @@
 .iconSpacingToText {
   padding-right: 8px;
 }
+
+.layoutHeader {
+  background-color: #fff !important;
+  display: flex;
+  justify-content: space-between;
+}
+
+.layoutSelectItem {
+  display: flex;
+  align-items: center;
+  padding: 4px 24px;
+}
+
+.layoutSelectLogout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 24px;
+}
