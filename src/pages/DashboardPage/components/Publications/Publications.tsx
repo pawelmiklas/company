@@ -3,6 +3,7 @@ import { usePosts } from "api/usePosts";
 import React from "react";
 import { useStore } from "store/store";
 import { matchPhoto, matchUser } from "utils/collectionMatches";
+import { colors } from "utils/theme";
 
 const { Text, Title } = Typography;
 
@@ -17,7 +18,7 @@ const Publications = () => {
   const [firstPost, ...restPosts] = data;
 
   return (
-    <Row style={{ backgroundColor: "#fff" }}>
+    <Row style={{ backgroundColor: colors.white }}>
       <Col span={8} style={{ position: "relative" }}>
         <img
           style={{ height: 320, width: "100%" }}
@@ -34,7 +35,7 @@ const Publications = () => {
           <Title
             level={5}
             style={{
-              color: "#fff",
+              color: colors.white,
             }}
           >
             {firstPost.title}
@@ -43,7 +44,7 @@ const Publications = () => {
             type="secondary"
             style={{
               marginRight: 8,
-              color: "#fff",
+              color: colors.white,
             }}
           >
             7 jan 2020
@@ -56,7 +57,7 @@ const Publications = () => {
             type="secondary"
             style={{
               marginLeft: 8,
-              color: "#fff",
+              color: colors.white,
             }}
           >
             {matchUser(users, firstPost.id)?.name}
